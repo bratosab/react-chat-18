@@ -10,8 +10,9 @@ body {
 
 .App header {
   position: fixed;
+  z-index: 2;
   top: 0;
-  height: 60px;
+  height: 10vh;
   background-color: #292d2f;
   width: 100%;
   max-width: 720px;
