@@ -11,6 +11,7 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 import { auth, store } from "../App";
 import { Message } from "./Message";
 import { Pending } from "./Pending";
+import useAutomaticScroll from "../hooks/useAutomaticScroll";
 
 export function Chatroom() {
   const msgCollection = collection(store, "messages");
@@ -19,15 +20,12 @@ export function Chatroom() {
   const [messages] = useCollectionData(q);
 
   const currentUser = auth.currentUser;
-  const scrollRef = useRef();
 
   let isSending = useRef(false);
   const [message, setMessage] = useState("");
   const [pending, setPending] = useState(null);
 
-  useEffect(() => {
-    scrollRef.current.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  const [scrollRef] = useAutomaticScroll(messages);
 
   useEffect(() => {
     if (!!message && !pending && !isSending.current) {
